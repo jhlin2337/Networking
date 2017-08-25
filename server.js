@@ -9,7 +9,7 @@ function Blob(id, x, y) {
 var express = require('express');
 var app = express();
 var server = app.listen(process.env.PORT || 5000)
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 console.log("My socket server is running");
 
