@@ -53,7 +53,7 @@ function newConnection(socket) {
 	);
 }
 
-app.get('/', function(request, response) {
-	console.log("blah!");
-	response.render('Index.html');
-});
+// app.get('/', function(request, response) {
+// 	console.log("blah!");
+// 	response.render('Index.html');
+// });
