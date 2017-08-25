@@ -11,7 +11,7 @@ window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 
-	socket = io.connect('https://protected-shelf-57293.herokuapp.com/');
+	socket = io.connect();
 	socket.on('blob', newDrawing)
 
 	// blob = new Blob(Math.floor(Math.random() * GAME_WIDTH), Math.floor(Math.random() * GAME_HEIGHT));
