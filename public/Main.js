@@ -8,45 +8,45 @@ var socket;
 var blobs = Array();
 
 window.onload = function() {
+	// Retrieves the game canvas that the code will work in
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 
+	// Connects the web socket to the url address that the game is hosted on
 	socket = io.connect('https://protected-shelf-57293.herokuapp.com');
-	socket.on('blob', newDrawing);
+	// socket = io.connect('http://localhost:5000');
 
-	// blob = new Blob(Math.floor(Math.random() * GAME_WIDTH), Math.floor(Math.random() * GAME_HEIGHT));
+	// Creates the blob and sends the blob data to the server
 	blob = new Blob(canvas.width/2, canvas.height/2);
-
-	console.log('Sending: ' + this.xPos + ', ' + this.yPos);
 	var data = {
 		x: this.xPos,
 		y: this.yPos
 	}
 	socket.emit('start', data);
 
+	// Retrieves data for each of the blobs from the server and updates the blobs' data
+	// in the client
 	socket.on('heartbeat',
 		function(data) {
-			// console.log(data);
 			blobs = data;
 		}
 	)
 
+	// Sets up input so that players can use 'wasd' to move
 	setupInput();
 
+	// Updates everything on the game canvas framesPerSecond times per second
 	var framesPerSecond = 30;
 	setInterval(updateAll, 1000/framesPerSecond);
 }
 
-function newDrawing(data) {
-	blob2 = new blob(data.x, data.y);
-	blob2.show();
-}
-
+// Update the properties of all objects on the game canvas
 function updateAll() {
 	drawAll();
 	blob.move();
 }
 
+// Draw everything that should be on the game canvas
 function drawAll() {
 	drawBackground();
 	panForTranslation();
@@ -61,6 +61,7 @@ function drawAll() {
 	}
 }
 
+// Draw the background for the game canvas
 function drawBackground() {
 	canvasContext.fillStyle = 'black';
 	canvasContext.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);

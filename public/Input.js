@@ -11,12 +11,13 @@ const KEY_D = 68;
 var mouseX = 0;
 var mouseY = 0;
 
+// Sets up an event listener to check if the player pressed on a key
 function setupInput() {
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
-	console.log('wat')
 } 
 
+// Sets the blob's movement keys to 'setTo'
 function keySet(keyEvent, setTo) {
 	if(keyEvent.keyCode == KEY_W || keyEvent.keyCode == KEY_UP_ARROW) {
 		blob.moveUpKeyHeld = setTo;
@@ -32,12 +33,14 @@ function keySet(keyEvent, setTo) {
 	}
 }
 
+// Sets blob movement key to true if key is pressed down
 function keyPressed(evt) {
 	keySet(evt, true);
 
 	// evt.preventDefault();
 }
 
+// Sets blob movement key to false if key is released
 function keyReleased(evt) {
 	keySet(evt, false);
 }
