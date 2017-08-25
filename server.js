@@ -54,5 +54,6 @@ function newConnection(socket) {
 }
 
 app.get('/', function(request, response) {
-	console.log("blah!")
+	console.log("blah!");
+	response.render('Index.html');
 });
