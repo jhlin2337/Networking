@@ -12,7 +12,7 @@ window.onload = function() {
 	canvasContext = canvas.getContext('2d');
 
 	socket = io.connect('https://protected-shelf-57293.herokuapp.com');
-	socket.on('blob', newDrawing)
+	socket.on('blob', newDrawing);
 
 	// blob = new Blob(Math.floor(Math.random() * GAME_WIDTH), Math.floor(Math.random() * GAME_HEIGHT));
 	blob = new Blob(canvas.width/2, canvas.height/2);
@@ -31,14 +31,13 @@ window.onload = function() {
 		}
 	)
 
-	setupInput()
+	setupInput();
 
 	var framesPerSecond = 30;
 	setInterval(updateAll, 1000/framesPerSecond);
 }
 
 function newDrawing(data) {
-	console.log('wat')
 	blob2 = new blob(data.x, data.y);
 	blob2.show();
 }
@@ -54,8 +53,8 @@ function drawAll() {
 	blob.show();
 	for (var i = 0; i < blobs.length; i++) {
 		if (blobs[i].id !== socket.id) {
-			canvasContext.fillStyle = 'white'
-			canvasContext.beginPath()
+			canvasContext.fillStyle = 'white';
+			canvasContext.beginPath();
 			canvasContext.arc(blobs[i].xPos, blobs[i].yPos, 10, 0,Math.PI*2, true);
 			canvasContext.fill();
 		}

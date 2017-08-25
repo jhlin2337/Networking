@@ -8,8 +8,8 @@ function Blob(x, y) {
 	this.moveRightKeyHeld = false;
 
 	this.show = function() {
-		canvasContext.fillStyle = 'white'
-		canvasContext.beginPath()
+		canvasContext.fillStyle = 'white';
+		canvasContext.beginPath();
 		canvasContext.arc(this.xPos, this.yPos, 10, 0,Math.PI*2, true);
 		canvasContext.fill();
 
