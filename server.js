@@ -52,3 +52,7 @@ function newConnection(socket) {
 		}
 	);
 }
+
+app.get('/', function(request, response) {
+	response.render('public/Index.html');
+});
