@@ -5,7 +5,8 @@ var canvas;
 var canvasContext;
 var socket;
 
-var blobs = Array();
+var playerData = Array();
+var blob;
 
 window.onload = function() {
 	// Retrieves the game canvas that the code will work in
@@ -24,11 +25,11 @@ window.onload = function() {
 	}
 	socket.emit('start', data);
 
-	// Retrieves data for each of the blobs from the server and updates the blobs' data
+	// Retrieves data for each of the playerData from the server and updates the playerData' data
 	// in the client
 	socket.on('heartbeat',
 		function(data) {
-			blobs = data;
+			playerData = data;
 		}
 	)
 
@@ -40,29 +41,37 @@ window.onload = function() {
 	setInterval(updateAll, 1000/framesPerSecond);
 }
 
-// Update the properties of all objects on the game canvas
+// Update the properties of all objects in the game
 function updateAll() {
 	drawAll();
 	blob.move();
 }
 
-// Draw everything that should be on the game canvas
+// Draw everything that should be in the game
 function drawAll() {
 	drawBackground();
+	drawMarkers();
 	panForTranslation();
 	blob.show();
-	for (var i = 0; i < blobs.length; i++) {
-		if (blobs[i].id !== socket.id) {
+
+	for (var i = 0; i < playerData.length; i++) {
+		if (playerData[i].id !== socket.id) {
 			canvasContext.fillStyle = 'white';
 			canvasContext.beginPath();
-			canvasContext.arc(blobs[i].xPos, blobs[i].yPos, 10, 0,Math.PI*2, true);
+			canvasContext.arc(playerData[i].xPos, playerData[i].yPos, 10, 0,Math.PI*2, true);
 			canvasContext.fill();
 		}
 	}
 }
 
-// Draw the background for the game canvas
+// Draw the background for the game
 function drawBackground() {
 	canvasContext.fillStyle = 'black';
 	canvasContext.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+}
+
+// Draws a marker in the middle of the game
+function drawMarkers() {
+	canvasContext.fillStyle = 'red';
+	canvasContext.fillRect(canvas.width, canvas.height, 16, 16);
 }

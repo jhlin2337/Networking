@@ -40,14 +40,13 @@ io.sockets.on('connection',
 		// to keep track of the players and their positions
 		socket.on('start', 
 			function(data) {
-				var blob = new Blob(socket.id, 400, 300);
+				var blob = new Blob(socket.id, data.x, data.y);
 				blobs.push(blob);	
 			}
 		);
 
 		// Updates the position of the players using the data that's sent
-		// to the server from the client and sends the new player position
-		// data back to all other clients
+		// to the server from the client 
 		socket.on('update',
 			function(data) {
 				var blob;
